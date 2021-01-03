@@ -27,6 +27,10 @@ const render = () => {
 
     $lable.for = `ck-${todo.id}`;
     $lable.textContent = todo.content;
+    if (todo.completed) {
+      $lable.style.textDecoration = 'line-through';
+      $lable.style.color = '#BDBDBD';
+    }
 
     $i.classList.add('remove-todo');
     $i.classList.add('far');
