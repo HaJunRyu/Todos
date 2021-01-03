@@ -8,22 +8,10 @@ const $completedTodos = document.querySelector('.completed-todos');
 const $activeTodos = document.querySelector('.active-todos');
 const $clearCompletedBtn = document.querySelector('.clear-completed > .btn');
 
-const $nav = document.querySelector('.nav');
-
 const render = () => {
   const $fragment = document.createDocumentFragment();
 
-  const $nowActive = document.querySelector('.active');
-
-  let renderTodos = todos;
-
-  if ($nowActive.id === 'active') {
-    renderTodos = todos.filter(({ completed }) => !completed);
-  } else if ($nowActive.id === 'completed') {
-    renderTodos = todos.filter(({ completed }) => completed);
-  }
-
-  renderTodos.forEach(todo => {
+  todos.forEach(todo => {
     const $li = document.createElement('li');
     const $checkbox = document.createElement('input');
     const $lable = document.createElement('label');
@@ -55,8 +43,8 @@ const render = () => {
     $fragment.appendChild($li);
   });
 
-  const completedLength = renderTodos.filter(({ completed }) => completed).length;
-  const inCompletedLength = renderTodos.filter(({ completed }) => !completed).length;
+  const completedLength = todos.filter(({ completed }) => completed).length;
+  const inCompletedLength = todos.filter(({ completed }) => !completed).length;
 
   // 리플로우와 리페인트가 일어나는 시점
   $todos.innerHTML = '';
@@ -136,12 +124,3 @@ $todos.addEventListener('click', ({ target }) => {
 $ckCompleteAll.addEventListener('click', completedAll);
 
 $clearCompletedBtn.addEventListener('click', clearCompleted);
-
-$nav.addEventListener('click', ({ target }) => {
-  if (!target.matches('.nav > li')) return;
-
-  document.querySelector('.active').classList.remove('active');
-  target.classList.add('active');
-
-  render();
-});
