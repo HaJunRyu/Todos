@@ -12,15 +12,30 @@ const $nav = document.querySelector('.nav');
 
 const render = () => {
   const $fragment = document.createDocumentFragment();
-
+  
   const $nowActive = document.querySelector('.active');
-
+  
   let renderTodos = todos;
-
+  
+  const completedLength = todos.filter(({ completed }) => completed).length;
+  const inCompletedLength = todos.filter(({ completed }) => !completed).length;
+  
   if ($nowActive.id === 'active') {
     renderTodos = todos.filter(({ completed }) => !completed);
   } else if ($nowActive.id === 'completed') {
     renderTodos = todos.filter(({ completed }) => completed);
+  }
+
+  //Todos가 비었을때
+  if (!todos.length) {
+    $emptyMsg = document.createElement('li');
+    $emptyMsg.textContent = 'Add Todos right now!';
+    $emptyMsg.style.listStyle = 'none';
+    $emptyMsg.style.fontWeight = 700;
+    $emptyMsg.style.textAlign = 'center';
+    $emptyMsg.style.fontSize = '30px';
+    $emptyMsg.style.color = '#47C83E';
+    $fragment.appendChild($emptyMsg);
   }
 
   renderTodos.forEach(todo => {
@@ -55,9 +70,6 @@ const render = () => {
     $fragment.appendChild($li);
   });
 
-  const completedLength = renderTodos.filter(({ completed }) => completed).length;
-  const inCompletedLength = renderTodos.filter(({ completed }) => !completed).length;
-
   // 리플로우와 리페인트가 일어나는 시점
   $todos.innerHTML = '';
   $todos.appendChild($fragment);
@@ -65,12 +77,13 @@ const render = () => {
   $completedTodos.textContent = completedLength;
   $activeTodos.textContent = inCompletedLength;
 
-  if (todos.length === completedLength) $ckCompleteAll.checked = true;
+  if (todos.length === completedLength && completedLength > 0) $ckCompleteAll.checked = true;
   else $ckCompleteAll.checked = false;
 };
 
 const fetchData = () => {
   todos = [
+    { id: 4, content: 'TodoList 3.0 완성하기', completed: true },
     { id: 3, content: '알고리즘 연습문제 풀기', completed: false },
     { id: 2, content: 'TodoList 2.0 완성하기', completed: true },
     { id: 1, content: '떡볶이 먹기', completed: true },
