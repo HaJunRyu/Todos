@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todos!</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/app.js"></script>
+  <script src="js/app.js" defer></script>
+  <script src="https://kit.fontawesome.com/0177b3b581.js" crossorigin="anonymous"></script>
 </head>
-<body>
-  <header>
-    <h1>Todos</h1>
-  </header>
-  <main>
-    <section>
-      <h2>Todo List</h2>
-      <form>
-        <fieldset>
-          <legend></legend>
-          <input type="text">
-          <button></button>
-          <select name="" id="">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </select>
-        </fieldset>
-      </form>
 
-      <ul class="todos-item"></ul>
+<body>
+  <header class="header">
+    <h1>WORKS TO BE DONE</h1>
+  </header>
+  <main class="main">
+    <section>
+      <h2 class="a11y-hidden">Todo List</h2>
+      <div class="form-container">
+        <form class="todo-form">
+          <fieldset>
+            <legend class="a11y-hidden">Todo form</legend>
+            <label for="todoWriter" class="a11y-hidden">Enter The Work</label>
+            <input id="todoWriter" class="todo-writer" type="text" placeholder="Enter The Work" autofocus>
+            <!-- <button class="add-todo-btn" type="button"><i class="fas fa-plus-square"></i></button> -->
+            <select name="" id="" class="select-status">
+              <option value="All">All</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </fieldset>
+        </form>
+      </div>
+      <ul class="todo-items">
+        <!-- <li><input id="completed-check" class="a11y-hidden" type="checkbox"><span>HTML</span><label class="fas fa-check" for="completed-check"></label><button class="fas fa-trash-alt" type="button"></button></li> -->
+      </ul>
     </section>
   </main>
   <footer></footer>
 </body>
+
 </html>
