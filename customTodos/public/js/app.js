@@ -17,17 +17,25 @@ const render = () => {
     const $label = document.createElement('label');
     const $button = document.createElement('button');
 
+    $span.textContent = todo.content;
+
     $checkbox.type = 'checkbox';
     $checkbox.classList.add('a11y-hidden');
-    if (todo.completed) $checkbox.checked= true;
-
-    $span.textContent = todo.content;
+    if (todo.completed) {
+      $checkbox.checked = true;
+      $li.classList.add('completed');
+      $span.style.textDecoration = 'line-through';
+    } else {
+      $checkbox.checked = false;
+      $li.classList.remove('completed');
+    }
 
     $label.classList.add('fas');
     $label.classList.add('fa-check');
     
     $button.classList.add('fas');
     $button.classList.add('fa-trash-alt');
+    $button.type = 'button';
 
     $li.id = todo.id;
     $li.appendChild($checkbox);
@@ -44,7 +52,7 @@ const render = () => {
 const fetchData = () => {
   const xhr = new XMLHttpRequest();
 
-  xhr.open('GET', 'http://localhost:3000/todos');
+  xhr.open('GET', '/todos');
 
   xhr.send();
 
@@ -54,7 +62,7 @@ const fetchData = () => {
       render();
     }
   }
-}
+};
 
 document.addEventListener('DOMContentLoaded', fetchData);
 
@@ -62,7 +70,7 @@ document.addEventListener('DOMContentLoaded', fetchData);
 const addTodo = content => {
   const xhr = new XMLHttpRequest();
 
-  xhr.open('POST', 'http://localhost:3000/todos');
+  xhr.open('POST', '/todos');
 
   xhr.setRequestHeader('content-type', 'application/json');
 
@@ -72,7 +80,8 @@ const addTodo = content => {
 
   xhr.onload = () => {
     if (xhr.status === 200 || xhr.status === 201) {
-      console.log(JSON.parse(xhr.response));
+      todos = [ ...todos, JSON.parse(xhr.response)];
+      render();
     }
   }
 }
@@ -80,22 +89,37 @@ const addTodo = content => {
 const removeTodo = id => {
   const xhr = new XMLHttpRequest();
 
-  xhr.open('DELETE', `http://localhost:3000/todos/${id}`)
+  xhr.open('DELETE', `/todos/${id}`)
 
   xhr.send();
 
   xhr.onload = () => {
     if (xhr.status === 200) {
-      console.log('ok');
-      render();
+      fetchData();
+    }
+  }
+}
+
+const completedTodo = (id, completed) => {
+  const xhr = new XMLHttpRequest();
+
+  xhr.open('PATCH', `/todos/${id}`)
+
+  xhr.setRequestHeader('content-type', 'application/json');
+
+  xhr.send(JSON.stringify({ completed: !completed }));
+
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      fetchData();
     }
   }
 }
 
 // 이벤트 핸들러 등록
 $todoWriter.addEventListener('keyup', event => {
-  console.dir(event.target.parentNode);
-  event.target.onsubmit = () => false;
+  event.preventDefault();
+  event.target.parentNode.parentNode.onsubmit = () => false;
   if (event.key !== 'Enter') return;
 
   const content = $todoWriter.value;
@@ -104,14 +128,14 @@ $todoWriter.addEventListener('keyup', event => {
   event.target.value = '';
 });
 
-$todoForm.onsubmit = e => e.preventDefault();
-
 $todos.addEventListener('click', ({ target }) => {
   if (!target.classList.contains('fa-check') && !target.classList.contains('fa-trash-alt')) return;
 
   const todoId = target.parentNode.id;
 
-  console.log(todoId);
-
   if (target.classList.contains('fa-trash-alt')) removeTodo(+todoId);
+  
+  if (target.classList.contains('fa-check')) {
+    completedTodo(+todoId, target.parentNode.firstChild.checked);
+  }
 })

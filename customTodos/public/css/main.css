@@ -1,10 +1,16 @@
 body {
-  background: linear-gradient(to right, #8041D9, #D1B2FF);
+  background: linear-gradient(to right, #6B66FF, #B677FF);
 }
 
 .header h1 {
   text-align: center;
   color: #fff;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.main {
+  overflow: auto;
 }
 
 .form-container {
@@ -13,32 +19,20 @@ body {
   margin-left: 40px;
 }
 
-.form-container * {
-  vertical-align: middle;
-}
-
 .todo-writer {
   width: 450px;
   height: 40px;
   font-size: 2rem;
+  margin-bottom: 20px;
 }
-
-/* .add-todo-btn {
-  background-color: transparent;
-  color: #A566FF;
-  font-size: 2.3rem;
-  position: absolute;
-  right: 41%;
-  top: 50%;
-  transform: translateY(-50%);
-} */
 
 .select-status {
   color: #A566FF;
-  height: 30px;
+  height: 35px;
 }
 
 .todo-items {
+  transition: 1s;
   width: 530px;
   list-style: none;
   margin: 15px auto;
@@ -52,6 +46,11 @@ body {
   padding: 5px;
   background-color: #fff;
   margin-bottom: 10px;
+}
+
+.todo-items .completed {
+  opacity: 0.5;
+  transform: scale(0.95);
 }
 
 .todo-items li span {
@@ -71,6 +70,7 @@ body {
   color: #FFF;
   background-color: #0BC904;
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .todo-items li .fa-trash-alt {
