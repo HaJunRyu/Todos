@@ -1,14 +1,17 @@
 let todos = [];
+let status = 'All';
 
 const $todos = document.querySelector('.todo-items');
 const $todoWriter = document.getElementById('todoWriter');
 const $todoForm = document.querySelector('.todo-form');
-
+const $selectStatus = document.querySelector('.select-status');
 
 const render = () => {
   const $fragment = document.createDocumentFragment();
 
-  const renderTodos = todos;
+  let renderTodos = todos;
+  if (status === 'Active') renderTodos = todos.filter(({ completed }) => !completed);
+  else if (status === 'Completed') renderTodos = todos.filter(({ completed }) => completed);
 
   renderTodos.forEach(todo => {
     const $li = document.createElement('li');
@@ -138,4 +141,9 @@ $todos.addEventListener('click', ({ target }) => {
   if (target.classList.contains('fa-check')) {
     completedTodo(+todoId, target.parentNode.firstChild.checked);
   }
-})
+});
+
+$selectStatus.addEventListener('change', event => {
+  status = event.target.value;
+  render();
+});
