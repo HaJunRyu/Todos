@@ -1,0 +1,22 @@
+node_modules/
+.DS_Store
+.vscode/
+Todos.PNG
+
+# customTodos with Promise
+customTodos with Promise/.eslintrc.json
+customTodos with Promise/Todos.PNG
+customTodos with Promise/db.json
+customTodos with Promise/package-lock.json
+customTodos with Promise/package.json
+
+# customTodos
+customTodos/db.json
+customTodos/package-lock.json
+customTodos/package.json
+
+# customTodos with axios
+customTodos with axios/db.json
+customTodos with axios/package-lock.json
+customTodos with axios/package.json
+customTodos with axios/Todos.PNG
