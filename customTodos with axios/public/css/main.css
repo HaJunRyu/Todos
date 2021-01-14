@@ -1,0 +1,79 @@
+body {
+  background: linear-gradient(to right, #6B66FF, #B677FF);
+}
+
+.header h1 {
+  text-align: center;
+  color: #fff;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.main {
+  overflow: auto;
+}
+
+.form-container {
+  text-align: center;
+  position: relative;
+  margin-left: 40px;
+}
+
+.todo-writer {
+  width: 450px;
+  height: 40px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.select-status {
+  color: #A566FF;
+  height: 35px;
+}
+
+.todo-items {
+  transition: 1s;
+  width: 530px;
+  list-style: none;
+  margin: 15px auto;
+}
+
+.todo-items li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 2rem;
+  padding: 5px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.todo-items .completed {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.todo-items li span {
+  flex-grow: 1;
+}
+
+.todo-items li button, .todo-items li label {
+  font-size: 2.2rem;
+  width: 33px;
+  height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-items li .fa-check {
+  color: #FFF;
+  background-color: #0BC904;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.todo-items li .fa-trash-alt {
+  color: #FFF;
+  background-color: red;
+}
